@@ -2,8 +2,9 @@
 Code and Data for ICDAR 2019 paper: Content Extraction from Lecture Video via Speaker Action Classification based on Pose Information
 
 #### Video List
-|Train Set | lecture_01, lecture_06, lecture_18, nm_lecture_01, nm_lecture_03|
+|Video Set | Video Names                                                     |
 |----------|-----------------------------------------------------------------|
+|Train Set | lecture_01, lecture_06, lecture_18, nm_lecture_01, nm_lecture_03|
 |Test Set  | lecture_02, lecture_07, lecture_08, lecture_10, lecture_15, nm_lecture_02, nm_lecture_05|
 
 
