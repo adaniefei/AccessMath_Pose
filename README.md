@@ -14,7 +14,7 @@ Code and Data for ICDAR 2019 paper: Content Extraction from Lecture Video via Sp
   Usage
     python pre_ST3D_v2.0_00_export_frames.py configs\01_export_frames.conf -l lecture_06
   Where
-    
+    |       |                              |
     |config | configs\01_export_frames.conf|
     |lecture_name | video name from *Video List*|
   
