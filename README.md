@@ -1,16 +1,24 @@
 # AccessMath_Pose
 Code and Data for ICDAR 2019 paper: Content Extraction from Lecture Video via Speaker Action Classification based on Pose Information
 
+#### Video List
+Train Set | lecture_01, lecture_06, lecture_18, nm_lecture_01, nm_lecture_03
+-----------------------------------------------------------------------------
+Test Set  | lecture_02, lecture_07, lecture_08, lecture_10, lecture_15, nm_lecture_02, nm_lecture_05
 
 
 
-pre_ST3D_v2.0_00_export_frames.py
+#### Export Frames from Video(required for annotation tools)
+  python pre_ST3D_v2.0_00_export_frames.py [config] -l [lecture_name]
+  Usage
+    python pre_ST3D_v2.0_00_export_frames.py configs\01_export_frames.conf -l lecture_06
+  
 gt_annotator.py
 openpose_00_run.py
 openpose_01_combine.py
 
 
-#### Get Action Segment information
+#### Get Action Segment Information
   Usage
     python spk_train_00_get_action_segments.py [config]
   Where
