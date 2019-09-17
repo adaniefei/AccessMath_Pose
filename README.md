@@ -1,29 +1,51 @@
 # AccessMath_Pose
 Code and Data for ICDAR 2019 paper: Content Extraction from Lecture Video via Speaker Action Classification based on Pose Information
 
-#### Video List
-|Video Set | Video Names                                                     |
-|----------|-----------------------------------------------------------------|
-|Train Set | lecture_01, lecture_06, lecture_18, nm_lecture_01, nm_lecture_03|
-|Test Set | lecture_02, lecture_07, lecture_08, lecture_10, lecture_15, nm_lecture_02, nm_lecture_05|
-
-
-
+Export Frames
+------
 #### Export Frames from Video(required for annotation tools)
-  python pre_ST3D_v2.0_00_export_frames.py [config] -l [lecture_name]
-  Usage
-    python pre_ST3D_v2.0_00_export_frames.py configs\01_export_frames.conf -l lecture_06
+  python pre_ST3D_v2.0_00_export_frames.py [config] [mode] [parameters]
+  
+  
+  Examples:
+    For all lectures in AccessMath(including the ones not currently in used):
+    ```
+    python pre_ST3D_v2.0_00_export_frames.py configs\01_export_frames.conf
+    ```
+    For all lectures from one dataset: 
+    ```
+    python pre_ST3D_v2.0_00_export_frames.py configs\01_export_frames.conf -d training
+    ```
+    For all lectures from more than one dataset with one command:
+    ```
+    python pre_ST3D_v2.0_00_export_frames.py configs\01_export_frames.conf -d "training testing"
+    ```
+    For one specific lecture:
+    ```
+    python pre_ST3D_v2.0_00_export_frames.py configs\01_export_frames.conf -l lecture_01
+    ```
+    Similarly, for a set of lectures:
+    ```
+    python pre_ST3D_v2.0_00_export_frames.py configs\01_export_frames.conf -l "lecture_01 lecture_02 lecture_06"
+    ```
+    
+       
   Where
-    |       |                              |
     |config | configs\01_export_frames.conf|
     |lecture_name | video name from *Video List*|
   
-  
+Video Annotation
+------
 gt_annotator.py
+
+Running Openpose 
+------
+
 openpose_00_run.py
 openpose_01_combine.py
 
-
+Training
+------
 #### Get Action Segment Information
   Usage
     python spk_train_00_get_action_segments.py [config]
@@ -37,6 +59,8 @@ spk_train_02_get_features.py
 spk_train_03_train_classifier.py
 spk_train_04_crossvalidation.py
 
+Summarization
+------
 spk_summ_00_segment.py
 spk_summ_01_get_features.py
 spk_summ_02_classify_actions.py
