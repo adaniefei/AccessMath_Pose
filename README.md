@@ -56,33 +56,33 @@ Two scripts are used for getting OpenPose data.
        For all testing videos
        > python openpose_00_run.py configs\03_main.conf -d testing
 
-⋅⋅⋅To use *openpose_00_run.py*, the user must confirm that:
+To use *openpose_00_run.py*, the user must confirm that:
 
-⋅⋅⋅..* OpenPose is installed and the Demo works successfully.
+* OpenPose is installed and the Demo works successfully.
 We use [OpenPose](https://github.com/CMU-Perceptual-Computing-Lab/openpose) to detect the keypoints of the speaker's body and hands. To install and quick start OpenPose Demo, please refer [Installation and Quick Start](https://github.com/CMU-Perceptual-Computing-Lab/openpose#installation-reinstallation-and-uninstallation). 
 
-..* Copy the *models* folder from OpenPose directory to the code root directory *AccessMath_Pose*
+* Copy the *models* folder from OpenPose directory to the code root directory *AccessMath_Pose*
 
-..* In the configure file *03_main.conf*, update the `OPENPOSE_DEMO_PATH` value to the corresponding *Demo* path.
+* In the configure file *03_main.conf*, update the `OPENPOSE_DEMO_PATH` value to the corresponding *Demo* path.
 
-..* Copy the re-encoded versions of the original lecture videos into *data\mp4_videos*.
+* Copy the re-encoded versions of the original lecture videos into *data\mp4_videos*.
 The user needs to download the original videos from [AccessMath](https://www.cs.rit.edu/~accessmath/am_videos/) and re-encode them to MP4 format. In order to use the other script later, each lecture should be re-encoded into a single MP4 video.
 
 
 2. *openpose_01_combine.py* is used to combine the data from all json files of one lecture video into one single csv file. It also manages the special case when there is no human subject in the screen or OpenPose fails to capture the keypoints. In this case a json file doesn't contain the speaker information and set all keypoints information with an invalid value(e.g. -1000). We provide the output csv files of this script in *data\output\openpose_csv*.
 
-Commands:
-For all training videos
-> python openpose_01_combine.py configs\03_main.conf -d training
+       Commands:
+       For all training videos
+       > python openpose_01_combine.py configs\03_main.conf -d training
 
-For all testing videos
-> python openpose_01_combine.py configs\03_main.conf -d testing
+       For all testing videos
+       > python openpose_01_combine.py configs\03_main.conf -d testing
 
 
 Training
 ------
 #### Get Action Segment Information
-
+*spk_train_00_get_action_segments.py* is used to get the action segment information from the annotation output for training videos. It uses
    python spk_train_00_get_action_segments.py configs\03_main.conf
    python spk_train_01_segment_pose_data.py configs\03_main.conf
    python spk_train_02_get_features.py configs\03_main.conf
