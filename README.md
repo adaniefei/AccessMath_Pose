@@ -1,11 +1,12 @@
 # AccessMath_Pose
 Code and Data for ICDAR 2019 paper: Content Extraction from Lecture Video via Speaker Action Classification based on Pose Information
 
+## Code - Overview
 Export Frames
 ------
 #### Export Frames from Video(required for annotation tools)
-We export frames from original videos for speaker action annotation. The FPS of the original video is 30. We export 10 frames per second to ensure the opencv-based annotation tool work correctly on reading the frame number when fast forward/backward
 > python pre_ST3D_v2.0_00_export_frames.py [config] [mode] [parameters]  
+We export frames from original videos for Video annotation. The FPS of the original video is 30 and we export 10 frames per second to ensure the annotator work correctly.
 
 Examples:
 
