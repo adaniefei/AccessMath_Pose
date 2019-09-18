@@ -33,7 +33,7 @@ Video Annotation
 ------
 ![alt text](https://github.com/adaniefei/Other/blob/images/gt_annotator.png?raw=true "Logo Title Text 1")
 
-This annotator is used to label the intervels of speaker action. For each interval, the lable contains the beginning and ending frame number of the interval, and the action of the speaker during the interval. The annotation data for this paper is in *data\output\annotations*. More information about the annotator could be accessed from (________________)
+This annotator is used to label the intervels of speaker action and export the annotations. For each interval, the lable contains the beginning and ending frame number of the interval, and the action of the speaker during the interval. The annotation data for this paper is in *data\output\annotations*. More information about the annotator could be accessed from (________________)
 
 Command:
 > python gt_annotator.py [config] [lecture_name]
@@ -46,10 +46,10 @@ For one specific lecture:
 Running Openpose 
 ------
 Two scripts are used for getting OpenPose data. 
-***
-*openpose_00_run.py* is used to captured the keypoints of the speaker frame by frame from the lecture video. The output for each frame is a json file which includes the locations and detection confidence of all keypoints of the speaker. The json files will be saved in *data\output\openpose_json*.
 
-Examples:
+1. *openpose_00_run.py* is used to captured the keypoints of the speaker frame by frame from the lecture video. The output for each frame is a json file which includes the locations and detection confidence of all keypoints of the speaker. The json files will be saved in *data\output\openpose_json*.
+
+Commands:
 For all training videos
 > python openpose_00_run.py configs\03_main.conf -d training
 
@@ -68,10 +68,10 @@ We use [OpenPose](https://github.com/CMU-Perceptual-Computing-Lab/openpose) to d
 ..* Copy the re-encoded versions of the original lecture videos into *data\mp4_videos*.
 The user needs to download the original videos from [AccessMath](https://www.cs.rit.edu/~accessmath/am_videos/) and re-encode them to MP4 format. In order to use the other script later, each lecture should be re-encoded into a single MP4 video.
 
-***
-*openpose_01_combine.py* is used to combine the data from all json files of one lecture video into one single csv file. It also manages the special case when there is no human subject in the screen or OpenPose fails to capture the keypoints. In this case a json file doesn't contain the speaker information and set all keypoints information with an invalid value(e.g. -1000). We provide the output csv files of this script in *data\output\openpose_csv*.
 
-Examples:
+2. *openpose_01_combine.py* is used to combine the data from all json files of one lecture video into one single csv file. It also manages the special case when there is no human subject in the screen or OpenPose fails to capture the keypoints. In this case a json file doesn't contain the speaker information and set all keypoints information with an invalid value(e.g. -1000). We provide the output csv files of this script in *data\output\openpose_csv*.
+
+Commands:
 For all training videos
 > python openpose_01_combine.py configs\03_main.conf -d training
 
@@ -82,6 +82,15 @@ For all testing videos
 Training
 ------
 #### Get Action Segment Information
+
+   python spk_train_00_get_action_segments.py configs\03_main.conf
+   python spk_train_01_segment_pose_data.py configs\03_main.conf
+   python spk_train_02_get_features.py configs\03_main.conf
+   python spk_train_03_train_classifier.py configs\03_main.conf
+   python spk_train_04_crossvalidation.py configs\03_main.conf
+
+   python train_ml_binarizer.py configs\03_main.conf
+   
   Usage
     python spk_train_00_get_action_segments.py [config]
   Where
