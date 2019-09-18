@@ -8,12 +8,22 @@ Export Frames
   
   
   Examples:
-  
     For all lectures in AccessMath(including the ones not currently in used):
-    
       ```
       python pre_ST3D_v2.0_00_export_frames.py configs\01_export_frames.conf
-      ```   
+      ```
+    For all lectures from more than one dataset with one command:
+      ```
+      python pre_ST3D_v2.0_00_export_frames.py configs\01_export_frames.conf -d "training testing"
+      ```
+    For one specific lecture:
+      ```
+      python pre_ST3D_v2.0_00_export_frames.py configs\01_export_frames.conf -l lecture_01
+      ```
+    Similarly, for a set of lectures: 
+      ```
+      python pre_ST3D_v2.0_00_export_frames.py configs\01_export_frames.conf -l "lecture_01 lecture_02 lecture_06"
+      ```
        
   Where
     |config | configs\01_export_frames.conf|
