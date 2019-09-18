@@ -32,7 +32,7 @@ Video Annotation
 Command:
 > python gt_annotator.py [config] [lecture_name]
 
-This annotator is used to label the intervels of speaker action. For each interval, the lable contains the beginning and ending frame number of the interval, and the action of the speaker during the interval. We release the annotation data for this paper.
+This annotator is used to label the intervels of speaker action. For each interval, the lable contains the beginning and ending frame number of the interval, and the action of the speaker during the interval. We release the annotation data for this paper. More information about the annotator could be accessed from (________________)
 
 Examples:
 
