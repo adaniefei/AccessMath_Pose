@@ -3,9 +3,8 @@ Code and Data for ICDAR 2019 paper: Content Extraction from Lecture Video via Sp
 
 ## Code - Overview
 
-Export Frames
+Export Frames(required for annotation tools)
 ------
-#### Export Frames from Video(required for annotation tools)
 > python pre_ST3D_v2.0_00_export_frames.py [config] [mode] [parameters]  
 
 It exports frames from original videos for Video annotation. The FPS of the original video is 30 and we export 10 frames per second to ensure the annotator work correctly.
@@ -28,7 +27,15 @@ Similarly, for a set of lectures:
   
 Video Annotation
 ------
-gt_annotator.py
+> python gt_annotator.py [config] [lecture_name]
+
+This annotator is used to label the intervels of speaker action. For each interval, the lable contains the beginning and ending frame number of the interval, and the action of thespeaker during the interval.
+
+Examples:
+
+For one specific lecture:
+> python gt_annotator.py configs\02_labeling.conf lecture_01
+
 
 Running Openpose 
 ------
