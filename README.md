@@ -9,11 +9,10 @@ Export Frames
   
   Examples:
     For all lectures in AccessMath(including the ones not currently in used):
-    
     ```
     python pre_ST3D_v2.0_00_export_frames.py configs\01_export_frames.conf
     ```
-    
+    \\
     For all lectures from one dataset: 
     
     ```
