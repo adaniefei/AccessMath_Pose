@@ -15,16 +15,16 @@ Command:
 > python pre_ST3D_v2.0_00_export_frames.py [config] [mode] [parameters]  
 
 Examples:
-> #For all lectures in AccessMath(including the ones not currently in used):
+For all lectures in AccessMath(including the ones not currently in used):
 > python pre_ST3D_v2.0_00_export_frames.py configs\01_export_frames.conf
 
-> # For all lectures from more than one dataset with one command:
+For all lectures from more than one dataset with one command:
 > python pre_ST3D_v2.0_00_export_frames.py configs\01_export_frames.conf -d "training testing"
 
-> # For one specific lecture:
+For one specific lecture:
 > python pre_ST3D_v2.0_00_export_frames.py configs\01_export_frames.conf -l lecture_01
 
-> # Similarly, for a set of lectures: 
+Similarly, for a set of lectures: 
 > python pre_ST3D_v2.0_00_export_frames.py configs\01_export_frames.conf -l "lecture_01 lecture_02 lecture_06"
        
 
@@ -39,7 +39,7 @@ Command:
 > python gt_annotator.py [config] [lecture_name]
 
 Examples:
-> #  For one specific lecture:
+For one specific lecture:
 > python gt_annotator.py configs\02_labeling.conf lecture_01
 
 
@@ -50,9 +50,10 @@ Two scripts are used for getting OpenPose data.
 *openpose_00_run.py* is used to captured the keypoints of the speaker frame by frame from the lecture video. The output for each frame is a json file which includes the locations and detection confidence of all keypoints of the speaker. The json files will be saved in *data\output\openpose_json*.
 
 Examples:
-> # For all training videos
+For all training videos
 > python openpose_00_run.py configs\03_main.conf -d training
-> # For all testing videos
+
+For all testing videos
 > python openpose_00_run.py configs\03_main.conf -d testing
 
 To use *openpose_00_run.py*, the user must confirm that:
@@ -71,9 +72,10 @@ The user needs to download the original videos from [AccessMath](https://www.cs.
 *openpose_01_combine.py* is used to combine the data from all json files of one lecture video into one single csv file. It also manages the special case when there is no human subject in the screen or OpenPose fails to capture the keypoints. In this case a json file doesn't contain the speaker information and set all keypoints information with an invalid value(e.g. -1000). We provide the output csv files of this script in *data\output\openpose_csv*.
 
 Examples:
-> # For all training videos
+For all training videos
 > python openpose_01_combine.py configs\03_main.conf -d training
-> # For all testing videos
+
+For all testing videos
 > python openpose_01_combine.py configs\03_main.conf -d testing
 
 
