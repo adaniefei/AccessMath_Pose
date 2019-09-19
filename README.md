@@ -16,6 +16,9 @@ Main Library Requirements:
  - Shapely
  - pandas
  
+### C files
+The c file * * needs to be re-compile for non-windows users. We provide a valid version of the file for users of Python 3.6+ 64-bits for windows user.
+ 
 ### Speaker Action Annotation
 #### Export Frames(required for annotation tools)
 It exports frames from original videos for Video annotation. The FPS of the original video is 30 and we export `FRAME_EXPORT_FPS` frames per second given in the [config] to ensure the annotator work correctly.
