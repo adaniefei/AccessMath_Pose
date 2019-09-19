@@ -2,10 +2,19 @@
 Code and Data for ICDAR 2019 paper: Content Extraction from Lecture Video via Speaker Action Classification based on Pose Information
 
 ## Data
-The data for this paper is released as [AccessMath_ICDAR_2019_data.zip](https://www.dropbox.com/s/5tk5zi5aytyf7ni/AccessMath_ICDAR_2019_data.zip?dl=0). Please download and unzip the file, and copy *data* folder to the code root directory *AccessMath_Pose*.
+The data for this paper is released as [AccessMath_ICDAR_2019_data.zip](https://www.dropbox.com/s/5tk5zi5aytyf7ni/AccessMath_ICDAR_2019_data.zip?dl=0). Please download and unzip the file, and copy *data* folder to the code root directory *AccessMath_Pose*. 
+The orignal AccessMath videos need to be downloaded and saved in *data\original_videos\lectures* from [AccessMath](https://www.cs.rit.edu/~accessmath/am_videos/lectures/). 
 
 
 ## Code
+This tool is tested and intended for usage with **Python 3.6+**.
+Main Library Requirements:
+ - Pygame
+ - OpenCV
+ - Numpy 
+ - Shapely
+ - pandas
+ 
 ### Speaker Action Annotation
 #### Export Frames(required for annotation tools)
 It exports frames from original videos for Video annotation. The FPS of the original video is 30 and we export `FRAME_EXPORT_FPS` frames per second given in the [config] to ensure the annotator work correctly.
@@ -41,7 +50,6 @@ This annotator is used to label the intervels of speaker action and export the a
        > python gt_annotator.py configs\02_labeling.conf lecture_01
 
 ------
-***
 
 ### Main Pipeline
 ![alt text](https://github.com/adaniefei/Other/blob/images/system_arch.png?raw=true "Logo Title Text 1")
@@ -68,7 +76,7 @@ We use [OpenPose](https://github.com/CMU-Perceptual-Computing-Lab/openpose) to d
 * In the configure file *03_main.conf*, update the `OPENPOSE_DEMO_PATH` value to the corresponding *Demo* path.
 
 * Copy the re-encoded versions of the original lecture videos into *data\mp4_videos*.
-The user needs to download the original videos from [AccessMath](https://www.cs.rit.edu/~accessmath/am_videos/) and re-encode them to MP4 format. In order to use the other script later, each lecture should be re-encoded into a single MP4 video.
+The user needs to re-encode the original AccessMath videos to MP4 format. In order to use the other script later, each lecture should be re-encoded into a single MP4 video.
 
 
 2. *openpose_01_combine.py* is used to combine the data from all json files of one lecture video into one single csv file. It also manages the special case when there is no human subject in the screen or OpenPose fails to capture the keypoints. In this case a json file doesn't contain the speaker information and set all keypoints information with an invalid value(e.g. -1000). We provide the output csv files of this script in *data\output\openpose_csv*.
@@ -83,9 +91,25 @@ The user needs to download the original videos from [AccessMath](https://www.cs.
 
 #### Speaker Motion Feature Extraction
 
+#### Speaker Action Classification
+
+#### Speaker Bounding Box Estimation
+
+#### Lecture Video Temporal Segmentation
+
+#### Foreground Mask Estimation
+
+#### Key-frame Selection and Binarization
+
+#### Lecture Video Summarization and Evaluation
+
 #### Get Action Segment Information
-*spk_train_00_get_action_segments.py* is used to get the action segment information from the annotation output of training videos. It uses
-   python spk_train_00_get_action_segments.py configs\03_main.conf
+1. *spk_train_00_get_action_segments.py* is used to get the action segment information from the annotation output of *training videos*. It uses the annotation of training videos and export action segment information in `SPEAKER_ACTION_SEGMENT_OUTPUT_DIR`.
+`SPEAKER_ACTION_SEGMENT_LENGTH` `SPEAKER_ACTION_SEGMENT_SAMPLING_MODE` and `SPEAKER_ACTION_SEGMENT_SAMPLING_TRACKS` are used to generate the action segment in corresponding sampling setting.
+
+       Command:
+       >  python spk_train_00_get_action_segments.py configs\03_main.conf
+2.  *spk_train_01_segment_pose_data.py* generates the output
    python spk_train_01_segment_pose_data.py configs\03_main.conf
    python spk_train_02_get_features.py configs\03_main.conf
    python spk_train_03_train_classifier.py configs\03_main.conf
