@@ -17,7 +17,7 @@ Main Library Requirements:
  - pandas
  
 ### C files
-The c file * * needs to be re-compile for non-windows users. We provide a valid version of the file for users of Python 3.6+ 64-bits for windows user.
+The c file *accessmath_lib.c* needs to be re-compile for non-windows users. We provide a valid version *accessmath_lib.o* of the file for users of Python 3.6+ 64-bits for windows user.
  
 ### Speaker Action Annotation
 #### Export Frames(required for annotation tools)
