@@ -164,13 +164,13 @@ The user needs to re-encode the original AccessMath videos to MP4 format. In ord
 #### Key-frame Selection and Binarization
 1. *spk_summ_06_keyframe_extraction.py* selects all temporal keyframes of each lecture video by its temporal segmentation. Result will be saved in `SPEAKER_ACTION_KEYFRAMES_DIR`.
 
-    Command:
-    python spk_summ_06_keyframe_extraction.py configs\03_main.conf
+       Command:
+       python spk_summ_06_keyframe_extraction.py configs\03_main.conf
 
-2. *train_ml_binarizer.py* trains a binarizer classifier by the ideal keyframes from lecture videos and save it in `ML_BINARIZER_DIR`. 
+2. *train_ml_binarizer.py* trains a binarizer classifier by the ideal keyframes from lecture videos and save it in `ML_BINARIZER_DIR`. We use the binarizer referring to *K. Davila, R. Zanibbi "Whiteboard video summarization via spatio-temporal conflict minimization", ICDAR 2017*. More detail of this paper could be found in [davila2017whiteboard](https://www.cs.rit.edu/~rlaz/files/Kenny_ICDAR_2017.pdf). 
 
-    Command:
-    python train_ml_binarizer.py configs\03_main.conf
+       Command:
+       python train_ml_binarizer.py configs\03_main.conf
 
 
 #### Lecture Video Summarization and Evaluation
