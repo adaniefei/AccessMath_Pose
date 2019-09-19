@@ -6,7 +6,7 @@ The data for this paper is released as [AccessMath_ICDAR_2019_data.zip](https://
 
 
 ## Code - Overview
-
+![alt text](https://github.com/adaniefei/Other/blob/images/system_arch.png?raw=true "Logo Title Text 1")
 Export Frames(required for annotation tools)
 ------
 It exports frames from original videos for Video annotation. The FPS of the original video is 30 and we export `FRAME_EXPORT_FPS` frames per second given in the [config] to ensure the annotator work correctly.
@@ -82,7 +82,7 @@ The user needs to download the original videos from [AccessMath](https://www.cs.
 Training
 ------
 #### Get Action Segment Information
-*spk_train_00_get_action_segments.py* is used to get the action segment information from the annotation output for training videos. It uses
+*spk_train_00_get_action_segments.py* is used to get the action segment information from the annotation output of training videos. It uses
    python spk_train_00_get_action_segments.py configs\03_main.conf
    python spk_train_01_segment_pose_data.py configs\03_main.conf
    python spk_train_02_get_features.py configs\03_main.conf
