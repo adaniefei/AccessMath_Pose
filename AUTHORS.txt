@@ -1,0 +1,15 @@
+DPRL Math Symbol Recognizers
+Copyright (c) 2019 Fei Xu, Kenny Davila
+
+This release of data and code is for ICDAR 2019 paper: Content Extraction from 
+Lecture Video via Speaker Action Classification based on Pose Information.
+
+The system was developed at the State University of New York at Buffalo in Buffalo,
+New York, USA, primarily in the Center for Unified Biometrics and Sensors(CUBS) 
+located within the Computer Science Department.
+
+Please see the LICENSE.txt file for terms of use. The system is is licensed under 
+a Creative Commons Attribution-ShareAlike 4.0 International License(CC BY-SA 4.0). 
+You should have received a copy of the license along with this work. If not, see 
+<http://creativecommons.org/licenses/by-sa/4.0/>.
+
