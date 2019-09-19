@@ -8,6 +8,7 @@ The orignal AccessMath videos need to be downloaded and saved in *data\original_
 
 ## Code
 This tool is tested and intended for usage with **Python 3.6+**.
+
 Main Library Requirements:
  - Pygame
  - OpenCV
@@ -90,54 +91,115 @@ The user needs to re-encode the original AccessMath videos to MP4 format. In ord
 
 
 #### Speaker Motion Feature Extraction
-
-#### Speaker Action Classification
-
-#### Speaker Bounding Box Estimation
-
-#### Lecture Video Temporal Segmentation
-
-#### Foreground Mask Estimation
-
-#### Key-frame Selection and Binarization
-
-#### Lecture Video Summarization and Evaluation
-
-#### Get Action Segment Information
+##### For Training Video
 1. *spk_train_00_get_action_segments.py* is used to get the action segment information from the annotation output of *training videos*. It uses the annotation of training videos and export action segment information in `SPEAKER_ACTION_SEGMENT_OUTPUT_DIR`.
 `SPEAKER_ACTION_SEGMENT_LENGTH` `SPEAKER_ACTION_SEGMENT_SAMPLING_MODE` and `SPEAKER_ACTION_SEGMENT_SAMPLING_TRACKS` are used to generate the action segment in corresponding sampling setting.
 
        Command:
-       >  python spk_train_00_get_action_segments.py configs\03_main.conf
-2.  *spk_train_01_segment_pose_data.py* generates the output
-   python spk_train_01_segment_pose_data.py configs\03_main.conf
-   python spk_train_02_get_features.py configs\03_main.conf
-   python spk_train_03_train_classifier.py configs\03_main.conf
-   python spk_train_04_crossvalidation.py configs\03_main.conf
+       > python spk_train_00_get_action_segments.py configs\03_main.conf
+       
+2.  *spk_train_01_segment_pose_data.py* generates the action segments of pose data given the action segment information from previous step and the speaker pose data of training videos captured from OpenPose. For each training video, the action segments of pose data and the normalization factor will be exported in `OUTPUT_PATH\SPEAKER_ACTION_SEGMENT_OUTPUT_DIR`.
 
-   python train_ml_binarizer.py configs\03_main.conf
-   
-  Usage
-    python spk_train_00_get_action_segments.py [config]
-  Where
-    config - > configs\03_main.conf
+        Command:
+        > python spk_train_01_segment_pose_data.py configs\03_main.conf
+
+3. *spk_train_02_get_features.py* extracts the selected features `SPEAKER_ACTION_FEATURE_POINTS ` from each action segment pose data, normalizes the features per training video and saves the features in `OUTPUT_PATH\SPEAKER_ACTION_FEATURES_DIR`
+
+       Command:
+       > python spk_train_02_get_features.py configs\03_main.conf
+
+##### For Testing Video
+1. *spk_summ_00_segment.py* generates the action segments of pose data seqentially given the segment length `SPEAKER_ACTION_SEGMENT_LENGTH` and the speaker pose data of testing videos captured from OpenPose. For each testing video, the action segments of pose data and the normalization factor will be exported in `OUTPUT_PATH\SPEAKER_ACTION_SEGMENT_OUTPUT_DIR`.
+
+       Command:
+       > python spk_summ_00_segment.py configs\03_main.conf
+       
+2. *spk_summ_01_get_features.py* extracts the selected features `SPEAKER_ACTION_FEATURE_POINTS` from each action segment pose data, normalizes the features per testing video and saves the features in `OUTPUT_PATH\SPEAKER_ACTION_FEATURES_DIR`
+
+       Command:
+       python spk_summ_01_get_features.py configs\03_main.conf
+          
+#### Speaker Action Classification
+1. *spk_train_03_train_classifier.py* trains a Random Forest classifier by all training videos data. The classifier will be saved in `OUTPUT_PATH\SPEAKER_ACTION_CLASSIFIER_DIR\SPEAKER_ACTION_CLASSIFIER_FILENAME`.
+
+       Command:
+       > python spk_train_03_train_classifier.py configs\03_main.conf
+       
+2. *spk_train_04_crossvalidation.py* runs the 5-fold cross validation on training videos. It will print out the confusion matrix of each validation video, and the global confusion matrix in the end.
+
+       Command:
+       python spk_train_04_crossvalidation.py configs\03_main.conf
+       
+3. *spk_summ_02_classify_actions.py* uses the trained Random Forest classifier with the extracted features from each testing video. The result including beginning and ending frame number and the action prediction of each action segment will be saved in `OUTPUT_PATH\SPEAKER_ACTION_CLASSIFICATION_OUTPUT_DIR`. The classification probabilities detail required for later process will be saved in `SPEAKER_ACTION_CLASSIFICATION_PROBABILITIES_DIR`
+
+       Command:
+       python spk_summ_02_classify_actions.py configs\03_main.conf
+
+
+#### Speaker Bounding Box Estimation
+*spk_summ_03_get_bboxes_per_frame.py* generates the bounding box of speaker's body and writing hand per frame. `SPEAKER_IS_RIGHT_HANDED` manages the handedness of the speaker. Results will be saved in `SPEAKER_ACTION_CLASSIFICATION_BBOXES_DIR`.
+     
+     Command:
+     python spk_summ_03_get_bboxes_per_frame.py configs\03_main.conf
+
+#### Lecture Video Temporal Segmentation
+1. *spk_summ_04_extract_video_metadata.py* extrats metadata(width and height) of every video and save the information in `SPEAKER_ACTION_VIDEO_META_DATA_DIR`.     
+
+       Command:
+       python spk_summ_04_extract_video_metadata.py configs\03_main.conf
+     
     
-#### Extract
-  
-spk_train_01_segment_pose_data.py
-spk_train_02_get_features.py
-spk_train_03_train_classifier.py
-spk_train_04_crossvalidation.py
+2.  *spk_summ_05_temporal_segmentation.py* uses bounding box, video meta data and information in classification probability files to generate temporal segmentation of every videos. Those are saved in `SPEAKER_ACTION_TEMPORAL_SEGMENTS_DIR`.
+     Command:
+     python spk_summ_05_temporal_segmentation.py configs\03_main.conf
 
-Summarization
+
+#### Foreground Mask Estimation
+*spk_summ_07_fg_estimation.py* uses meta data and the bounding box information of every video to create the foreground mask based on writing action. `SPEAKER_FG_ESTIMATION_SPK_EXPANSION_FACTOR`, `SPEAKER_FG_ESTIMATION_MIN_MASK_FRAMES` and `SPEAKER_FG_ESTIMATION_MASK_EXPANSION_RADIUS` are used as mask expansion parameters. The result will be saved in `SPEAKER_FG_ESTIMATION_MASK_DIR`.
+
+    Command:
+    python spk_summ_07_fg_estimation.py configs\03_main.conf
+
+#### Key-frame Selection and Binarization
+
+python spk_summ_06_keyframe_extraction.py configs\03_main.conf
+
+#### Lecture Video Summarization and Evaluation
+##### Generate Video Summarization
+python spk_summ_08_generate_summaries.py configs\03_main.conf
+
+##### Evaluation
+
+    python eval_multiple_summaries.py configs\03_main.conf -d testing -b speaker_actions
+   
+Note: the baseline parameter allows to evaluate variations of the system. During the generation of the summaries
+the system uses the parameter "SPEAKER_SUMMARY_PREFIX" to add a baseline prefix to the generated summaries.
+Here, we use the baseline parameter "-b speaker_actions" to allow the evaluation script find the right set of 
+summaries to compute the corresponding evaluation metrics. 
+
+Summaries from the ICDAR 2019 paper:
+
+    python eval_multiple_summaries.py configs\03_main.conf -d testing -b speaker_actions_RAW
+    python eval_multiple_summaries.py configs\03_main.conf -d testing -b speaker_actions_SPK_REMOVAL
+    python eval_multiple_summaries.py configs\03_main.conf -d testing -b speaker_actions_BG_REMOVAL
+    python eval_multiple_summaries.py configs\03_main.conf -d testing -b speaker_actions_SPK_BG_REMOVAL
+    
 ------
-spk_summ_00_segment.py
-spk_summ_01_get_features.py
-spk_summ_02_classify_actions.py
-spk_summ_03_get_bboxes_per_frame.py
-spk_summ_04_extract_video_metadata.py
-spk_summ_05_temporal_segmentation.py
-spk_summ_06_keyframe_extraction.py
-spk_summ_07_fg_estimation.py
-spk_summ_08_generate_summaries.py
-eval_multiple_summaries.py
+python train_ml_binarizer.py configs\03_main.conf
+
+   
+  
+    
+
+
+   
+   
+   
+  
+   
+   
+   
+
+
+
+
