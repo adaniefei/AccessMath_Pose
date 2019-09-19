@@ -5,10 +5,10 @@ Code and Data for ICDAR 2019 paper: Content Extraction from Lecture Video via Sp
 The data for this paper is released as [AccessMath_ICDAR_2019_data.zip](https://www.dropbox.com/s/5tk5zi5aytyf7ni/AccessMath_ICDAR_2019_data.zip?dl=0). Please download and unzip the file, and copy *data* folder to the code root directory *AccessMath_Pose*.
 
 
-## Code - Overview
-![alt text](https://github.com/adaniefei/Other/blob/images/system_arch.png?raw=true "Logo Title Text 1")
-Export Frames(required for annotation tools)
+## Code
+### Annotation
 ------
+#### Export Frames(required for annotation tools)
 It exports frames from original videos for Video annotation. The FPS of the original video is 30 and we export `FRAME_EXPORT_FPS` frames per second given in the [config] to ensure the annotator work correctly.
 
        Command: 
@@ -29,8 +29,7 @@ It exports frames from original videos for Video annotation. The FPS of the orig
        
 
   
-Video Annotation
-------
+#### Video Annotation
 ![alt text](https://github.com/adaniefei/Other/blob/images/gt_annotator.png?raw=true "Logo Title Text 1")
 
 This annotator is used to label the intervels of speaker action and export the annotations. For each interval, the lable contains the beginning and ending frame number of the interval, and the action of the speaker during the interval. The annotation data for this paper is in *data\output\annotations*. More information about the annotator could be accessed from (________________)
@@ -42,10 +41,12 @@ This annotator is used to label the intervels of speaker action and export the a
        For one specific lecture:
        > python gt_annotator.py configs\02_labeling.conf lecture_01
 
+#### Main Pipeline
+![alt text](https://github.com/adaniefei/Other/blob/images/system_arch.png?raw=true "Logo Title Text 1")
 
-Running Openpose 
+### Running Openpose 
 ------
-Two scripts are used for getting OpenPose data. 
+Two scripts are used to get OpenPose data for speaker pose estimation. 
 
 1. *openpose_00_run.py* is used to captured the keypoints of the speaker frame by frame from the lecture video. The output for each frame is a json file which includes the locations and detection confidence of all keypoints of the speaker. The json files will be saved in *data\output\openpose_json*.
 
@@ -79,7 +80,7 @@ The user needs to download the original videos from [AccessMath](https://www.cs.
        > python openpose_01_combine.py configs\03_main.conf -d testing
 
 
-Training
+### Speaker Motion Feature Extraction
 ------
 #### Get Action Segment Information
 *spk_train_00_get_action_segments.py* is used to get the action segment information from the annotation output of training videos. It uses
