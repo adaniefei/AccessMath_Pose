@@ -1,13 +1,15 @@
 # AccessMath_Pose
+------
 Code and Data for ICDAR 2019 paper: Content Extraction from Lecture Video via Speaker Action Classification based on Pose Information
 
 ## Data
+------
 The data for this paper is released as [AccessMath_ICDAR_2019_data.zip](https://www.dropbox.com/s/5tk5zi5aytyf7ni/AccessMath_ICDAR_2019_data.zip?dl=0). Please download and unzip the file, and copy *data* folder to the code root directory *AccessMath_Pose*.
 
 
 ## Code
-### Annotation
 ------
+### Annotation
 #### Export Frames(required for annotation tools)
 It exports frames from original videos for Video annotation. The FPS of the original video is 30 and we export `FRAME_EXPORT_FPS` frames per second given in the [config] to ensure the annotator work correctly.
 
