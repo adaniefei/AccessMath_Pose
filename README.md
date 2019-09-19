@@ -44,7 +44,9 @@ It exports frames from original videos for Video annotation. The FPS of the orig
 #### Video Annotation
 ![alt text](https://github.com/adaniefei/Other/blob/images/gt_annotator.png?raw=true "Logo Title Text 1")
 
-This annotator is used to label the intervels of speaker action and export the annotations. For each interval, the lable contains the beginning and ending frame number of the interval, and the action of the speaker during the interval. The annotation data for this paper is in *data\output\annotations*. More information about the annotator could be accessed from (________________)
+This annotator is used to label the intervels of speaker action and export the annotations. For each interval, the lable contains the beginning and ending frame number of the interval, and the action of the speaker during the interval. The annotation data for this paper is in *data\output\annotations*. 
+
+We adapt the annotator from the paper of *K. Davila, R. Zanibbi "Whiteboard video summarization via spatio-temporal conflict minimization", ICDAR 2017*. ([davila2017whiteboard](https://www.cs.rit.edu/~rlaz/files/Kenny_ICDAR_2017.pdf)). For our paper we add more features to complete the speaker action annotation.
 
        Command:
        > python gt_annotator.py [config] [lecture_name]
