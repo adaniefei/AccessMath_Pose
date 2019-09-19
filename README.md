@@ -150,8 +150,9 @@ The user needs to re-encode the original AccessMath videos to MP4 format. In ord
      
     
 2.  *spk_summ_05_temporal_segmentation.py* uses bounding box, video meta data and information in classification probability files to generate temporal segmentation of every videos. Those are saved in `SPEAKER_ACTION_TEMPORAL_SEGMENTS_DIR`.
-     Command:
-     python spk_summ_05_temporal_segmentation.py configs\03_main.conf
+
+        Command:
+        python spk_summ_05_temporal_segmentation.py configs\03_main.conf
 
 
 #### Foreground Mask Estimation
@@ -161,18 +162,30 @@ The user needs to re-encode the original AccessMath videos to MP4 format. In ord
     python spk_summ_07_fg_estimation.py configs\03_main.conf
 
 #### Key-frame Selection and Binarization
+1. *spk_summ_06_keyframe_extraction.py* selects all temporal keyframes of each lecture video by its temporal segmentation. Result will be saved in `SPEAKER_ACTION_KEYFRAMES_DIR`.
 
-python spk_summ_06_keyframe_extraction.py configs\03_main.conf
+    Command:
+    python spk_summ_06_keyframe_extraction.py configs\03_main.conf
+
+2. *train_ml_binarizer.py* trains a binarizer classifier by the ideal keyframes from lecture videos and save it in `ML_BINARIZER_DIR`. 
+
+    Command:
+    python train_ml_binarizer.py configs\03_main.conf
+
 
 #### Lecture Video Summarization and Evaluation
 ##### Generate Video Summarization
-python spk_summ_08_generate_summaries.py configs\03_main.conf
+*spk_summ_08_generate_summaries.py* generates the final binarized summaries of lecture videos given the temporal segmentation, temporal keyframes and foreground mask. Summaries will be saved in `OUTPUT_PATH\summaries` 
+
+    Command:
+    python spk_summ_08_generate_summaries.py configs\03_main.conf
 
 ##### Evaluation
-
+    
+    Command:
     python eval_multiple_summaries.py configs\03_main.conf -d testing -b speaker_actions
    
-Note: the baseline parameter allows to evaluate variations of the system. During the generation of the summaries
+The baseline parameter allows to evaluate variations of the system. During the generation of the summaries
 the system uses the parameter "SPEAKER_SUMMARY_PREFIX" to add a baseline prefix to the generated summaries.
 Here, we use the baseline parameter "-b speaker_actions" to allow the evaluation script find the right set of 
 summaries to compute the corresponding evaluation metrics. 
@@ -184,22 +197,3 @@ Summaries from the ICDAR 2019 paper:
     python eval_multiple_summaries.py configs\03_main.conf -d testing -b speaker_actions_BG_REMOVAL
     python eval_multiple_summaries.py configs\03_main.conf -d testing -b speaker_actions_SPK_BG_REMOVAL
     
-------
-python train_ml_binarizer.py configs\03_main.conf
-
-   
-  
-    
-
-
-   
-   
-   
-  
-   
-   
-   
-
-
-
-
