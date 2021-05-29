@@ -202,3 +202,15 @@ Summaries from the ICDAR 2019 paper:
     python eval_multiple_summaries.py configs\03_main.conf -d testing -b speaker_actions_BG_REMOVAL
     python eval_multiple_summaries.py configs\03_main.conf -d testing -b speaker_actions_SPK_BG_REMOVAL
     
+
+## Citation
+Please cite the following paper in your publication if it helps your research :)
+
+    @inproceedings{xu2019content,
+    title={Content extraction from lecture video via speaker action classification based on pose information},
+    author={Xu, Fei and Davila, Kenny and Setlur, Srirangaraj and Govindaraju, Venu},
+    booktitle={2019 International Conference on Document Analysis and Recognition (ICDAR)},
+    pages={1047--1054},
+    year={2019},
+    organization={IEEE}
+    }
